@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { assets, blogCategories } from '../../assets/assets'
 import Quill from 'quill';
 import { useAppContext } from '../../context/AppContext';
+import toast from 'react-hot-toast';
 
 const AddBlog = () => {
 
@@ -34,13 +35,13 @@ const onSubmitHandler=async(e)=>{
      formData.append('blog',JSON.stringify(blog))
      formData.append('image',image)
 
-     const {data}=await axios.post('/api/blog/add',formData);
+     const {data}=await axios.post('http://localhost:3000/api/blog/add',formData);
 
      if(data.success){
       toast.success(data.message);
       setImage(false)
       setTitle('')
-      quillRef.current.roor.innerHTML=''
+      quillRef.current.root.innerHTML=''
       setCategory('Startup')
      }
       else{
@@ -48,7 +49,7 @@ const onSubmitHandler=async(e)=>{
       }
     }catch (error) {
     toast.error(error.message)
-  }finally{
+   }finally{
     setIsAdding(false)
   }
 }
