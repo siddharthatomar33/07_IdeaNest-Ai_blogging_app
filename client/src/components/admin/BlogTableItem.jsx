@@ -17,10 +17,17 @@ const BlogTableItem = ({blog, fetchBlogs, index}) => {
             const{data}=await axios.post('/api/blog/delete',{id:blog._id})
             if(data.success){
                 toast.success(data.message)
+                await fetchBlogs()
+            }else{
+                toast.error(data.message)
             }
         } catch (error) {
             
         }
+    }
+
+    const togglePublish=async()=>{
+        
     }
 
   return (
